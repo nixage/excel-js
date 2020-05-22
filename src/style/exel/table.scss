@@ -1,0 +1,58 @@
+@import '../var.scss';
+
+.exel-table {
+  position: absolute;
+  top: $headerHeight + $toolbarHeight + $formulaHeight;
+  left: 0;
+  right: 0;
+  overflow-x: auto;
+  overflow-y: auto;
+  &__row {
+    display: flex;
+    height: 24px;
+  }
+
+  &__start {
+    min-width: $widthCellStartAndNumber;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: $border;
+    border-bottom: $border;
+    font-size: 12px;
+    background-color: #f8f9fa;
+  }
+
+  &__row-letter {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  &__cell-letter {
+    width: $widthCell;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: $border;
+    border-bottom: $border;
+    background-color: #f8f9fa;
+    line-height: 22px;
+  }
+
+  &__cell-num {
+    @extend .exel-table__start;
+  }
+
+  &__row-cell {
+    @extend .exel-table__row-letter;
+  }
+
+  &__cell {
+    @extend .exel-table__cell-letter;
+    justify-content: start;
+    padding: 0px 5px;
+    background-color: #fff;
+  }
+}
