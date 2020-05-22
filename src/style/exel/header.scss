@@ -1,0 +1,44 @@
+@import '../var.scss';
+
+.exel-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: $headerHeight;
+	border-bottom: $border;
+	background-color: #ffffff;
+  &__row {
+		padding: 5px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__left-block {
+    display: flex;
+		align-items: center;
+    padding: 0px 0px 0px 5px;
+  }
+
+  &__logo {
+    cursor: pointer;
+  }
+
+  &__input {
+  }
+
+  &__right-block {
+    padding: 0px 5px 0px 0px;
+  }
+
+  &__button {
+    display: flex;
+    .btn{
+      margin: 0px 5px 0px 0px;
+      &:last-child{
+        margin:0px;
+      }
+    }
+  }
+}

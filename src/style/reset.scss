@@ -43,6 +43,7 @@ input::-ms-clear {
 }
 button {
 	cursor: pointer;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 button::-moz-focus-inner {
 	padding: 0;

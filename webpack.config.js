@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizationCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const autoprefixer = require('autoprefixer');
-// const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
@@ -29,11 +29,9 @@ const optimization = () => {
 const jsLoaders = () => {
   const loader = [
     {
-      loader: {
-        loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env'],
-        },
+      loader: 'babel-loader',
+      options: {
+        presets: ['@babel/preset-env'],
       },
     },
   ];
@@ -51,6 +49,9 @@ module.exports = {
   devServer: {
     port: 4200,
     hot: isDev,
+    publicPath: '/',
+    contentBase: path.resolve(__dirname, 'src'),
+    watchContentBase: true
   },
   devtool: isDev ? 'source-map' : false,
   resolve: {
@@ -62,10 +63,12 @@ module.exports = {
   optimization: optimization(),
   entry: {
     main: ['@babel/polyfill', './index.js'],
+    unshift: 'webpack-dev-server/client?http://localhost:4200/'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[hash].js',
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -101,9 +104,9 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: '[name].[ext]',
-              outputPath: '/img',
-              publicPath: './img',
+              name: '[path][name].[ext]',
+              // outputPath: '/img',
+              // publicPath: './img'
             },
           },
           'image-webpack-loader',
@@ -119,9 +122,9 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: '[name].[ext]',
-              outputPath: '/fonts',
-              publicPath: './fonts',
+              name: '[path][name].[ext]',
+              // outputPath: '/fonts',
+              // publicPath: './fonts',
             },
           },
         ],
@@ -144,5 +147,13 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'style.[hash].css',
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src/favicon.ico'),
+          to: path.resolve(__dirname, 'dist')
+        }
+      ]
+    })
   ],
 };
