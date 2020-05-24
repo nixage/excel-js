@@ -58,6 +58,7 @@ module.exports = {
     alias: {
       '@img': path.resolve(__dirname, 'src/img'),
       '@fonts': path.resolve(__dirname, 'src/fonts'),
+      '@core': path.resolve(__dirname, 'src/core'),
     },
   },
   optimization: optimization(),
