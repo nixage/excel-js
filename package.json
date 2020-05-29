@@ -20,6 +20,7 @@
   "homepage": "https://github.com/nixage/exel-js#readme",
   "devDependencies": {
     "@babel/core": "^7.9.6",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/preset-env": "^7.9.6",
     "autoprefixer": "^9.8.0",
     "babel-eslint": "^10.1.0",

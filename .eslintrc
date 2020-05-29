@@ -10,13 +10,7 @@
     "semi":"off",
     "arrow-parens":"off",
     "comma-dangle":"off",
-    "max-len": [
-      "error", {
-        "tabWidth": 2,
-        "ignoreComments": true,
-        "ignoreUrls": true
-      }
-    ],
+    "max-len":"off",
     "require-jsdoc": "off"
   },
   "extends": [

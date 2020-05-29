@@ -1,12 +1,13 @@
 @import '../var.scss';
 
-.exel-table {
+.excel-table {
   position: absolute;
   top: $headerHeight + $toolbarHeight + $formulaHeight;
   left: 0;
   right: 0;
   overflow-x: auto;
   overflow-y: auto;
+  padding: 0px 0px 25px 0px;
   &__row {
     display: flex;
     height: 24px;
@@ -42,15 +43,15 @@
   }
 
   &__cell-num {
-    @extend .exel-table__start;
+    @extend .excel-table__start;
   }
 
   &__row-cell {
-    @extend .exel-table__row-letter;
+    @extend .excel-table__row-letter;
   }
 
   &__cell {
-    @extend .exel-table__cell-letter;
+    @extend .excel-table__cell-letter;
     justify-content: start;
     padding: 0px 5px;
     background-color: #fff;
