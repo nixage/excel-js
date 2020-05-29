@@ -32,6 +32,7 @@ const jsLoaders = () => {
       loader: 'babel-loader',
       options: {
         presets: ['@babel/preset-env'],
+        plugins: ['@babel/plugin-proposal-class-properties']
       },
     },
   ];
@@ -56,8 +57,10 @@ module.exports = {
   devtool: isDev ? 'source-map' : false,
   resolve: {
     alias: {
+      '@': path.resolve(__dirname, 'src'),
       '@img': path.resolve(__dirname, 'src/img'),
       '@fonts': path.resolve(__dirname, 'src/fonts'),
+      '@core': path.resolve(__dirname, 'src/core'),
     },
   },
   optimization: optimization(),
