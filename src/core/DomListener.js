@@ -9,13 +9,15 @@ export class DomListener {
 
   initDomListener() {
     this.listeners.forEach(el => {
-      this.root.on(el.eventType, el.field, this[el.fn])
+      const fn = this[el.fn].bind(this)
+      this.root.on(el.eventType, el.field, fn)
     })
   }
 
   removeDomListener() {
     this.listeners.forEach( el => {
-      this.root.off(el.eventType, el.field, this[el.fn])
+      const fn = this[el.fn].bind(this)
+      this.root.off(el.eventType, el.field, fn)
     })
   }
 }
