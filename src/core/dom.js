@@ -4,6 +4,7 @@ class Dom {
     this.listeners = [];
   }
 
+
   html(html) {
     if (typeof html === 'string') {
       this.el.innerHTML = html;
@@ -21,16 +22,14 @@ class Dom {
   }
 
   on(eventType, selector, callback) {
-    const rootNode = this.el
-    const nodeElements = rootNode.querySelectorAll(selector);
-    console.log(this)
+    const nodeElements = this.el.querySelectorAll(selector);
     if (nodeElements) {
-      for (let i = 0; i < nodeElements.length; i++ ) {
+      for (let i = 0; i < nodeElements.length; i++) {
         nodeElements[i].addEventListener(eventType, callback);
         this.listeners.push({
           nodeElement: nodeElements[i],
-          fn: callback
-        })
+          fn: callback,
+        });
       }
     }
   }
@@ -40,6 +39,35 @@ class Dom {
     if (listener) {
       listener.nodeElement.removeEventListener(eventType, callback);
     }
+  }
+
+  closest(selector) {
+    return $(this.el.closest(selector));
+  }
+
+  cords() {
+    return this.el.getBoundingClientRect();
+  }
+
+  all(selector) {
+    return this.el.querySelectorAll(selector);
+  }
+
+  get data() {
+    return this.el.dataset
+  }
+
+  get height() {
+    return this.el.clientHeight
+  }
+
+  get width() {
+    return this.el.clientWidth
+  }
+
+  css(style, value) {
+    this.el.style[style] = value;
+    return this
   }
 }
 
@@ -53,4 +81,8 @@ $.create = function(tagName, classes = '') {
     el.classList.add(classes);
   }
   return $(el);
+};
+
+$.all = function(selector) {
+  return document.querySelectorAll(selector);
 };

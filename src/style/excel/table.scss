@@ -10,7 +10,8 @@
   padding: 0px 0px 25px 0px;
   &__row {
     display: flex;
-    height: 24px;
+    height: $heighCell;
+    min-height: 25px;
   }
 
   &__start {
@@ -22,6 +23,7 @@
     border-bottom: $border;
     font-size: 12px;
     background-color: #f8f9fa;
+    position: relative;
   }
 
   &__row-letter {
@@ -32,6 +34,7 @@
 
   &__cell-letter {
     width: $widthCell;
+    min-width: 60px;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -39,7 +42,9 @@
     border-right: $border;
     border-bottom: $border;
     background-color: #f8f9fa;
-    line-height: 22px;
+    line-height: 26px;
+    position: relative;
+    word-break: break-all;
   }
 
   &__cell-num {
@@ -53,7 +58,45 @@
   &__cell {
     @extend .excel-table__cell-letter;
     justify-content: start;
+    align-items: flex-start;
     padding: 0px 5px;
     background-color: #fff;
+    overflow: hidden;
+  }
+  &__resizer-row, &__resizer-col{
+    position: absolute;
+    background-color: #36c;
+    border-radius: 1px;
+    opacity: 0;
+    z-index: 1000;
+    // @include anim(0.1s,0s);
+  }
+  &__resizer-row{
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    cursor: row-resize;
+    @media (min-width: 992px){
+      &:hover{
+        &{
+          opacity: 1 !important;
+        }
+      }
+    }
+  }
+  &__resizer-col{
+    bottom: 0;
+    top: 0;
+    right: 0;
+    width: 4px;
+    cursor: col-resize;
+    @media (min-width: 992px){
+      &:hover{
+        &{
+          opacity: 1 !important;
+        }
+      }
+    }
   }
 }
