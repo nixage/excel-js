@@ -27,7 +27,7 @@ function renderRowCell(count) {
           <div class="excel-table__resizer-row" data-resize="row"></div> 
         </div>
         <div class="excel-table__row-cell">
-          ${renderCell()}
+          ${renderCell(i)}
         </div>
       </div>
     `)
@@ -35,12 +35,12 @@ function renderRowCell(count) {
   return template.join('')
 }
 
-function renderCell() {
+function renderCell(row) {
   const cellNumber = letterCode.Z - letterCode.A;
   const template = []
   for (let i = 0; i < cellNumber; i++ ) {
     template.push(`
-      <div class="excel-table__cell" contenteditable data-cell="${i + 1}"></div>
+      <div class="excel-table__cell" contenteditable data-cell="${i + 1}" data-id="${row + 1}:${i + 1}"></div>
     `)
   }
   return template.join('')

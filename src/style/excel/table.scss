@@ -39,8 +39,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-right: $border;
-    border-bottom: $border;
+    border: $border;
+    border-top: none;
+    border-left: none;
+    // border-bottom: $border;
     background-color: #f8f9fa;
     line-height: 26px;
     position: relative;
@@ -62,6 +64,10 @@
     padding: 0px 5px;
     background-color: #fff;
     overflow: hidden;
+  }
+  &__cell.selected{
+    border: 2px solid #36c;
+    z-index: 1;
   }
   &__resizer-row, &__resizer-col{
     position: absolute;

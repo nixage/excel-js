@@ -53,6 +53,10 @@ class Dom {
     return this.el.querySelectorAll(selector);
   }
 
+  find(selector) {
+    return $(this.el.querySelector(selector))
+  }
+
   get data() {
     return this.el.dataset
   }
@@ -68,6 +72,13 @@ class Dom {
   css(style, value) {
     this.el.style[style] = value;
     return this
+  }
+
+  add(className) {
+    this.el.classList.add(className)
+  }
+  remove(className) {
+    this.el.classList.remove(className)
   }
 }
 
