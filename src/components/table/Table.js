@@ -8,7 +8,7 @@ import {$} from '@core/dom'
 export class Table extends ExcelComponent {
   static className = 'excel-table';
 
-  constructor(root) {
+  constructor(root, emmiter) {
     super(root, {
       name: 'Table',
       listeners: [
@@ -19,10 +19,16 @@ export class Table extends ExcelComponent {
         },
         {
           eventType: 'keydown',
-          field: '[data-body="table-body"]',
+          field: '[data-content="table-content"]',
           fn: 'tableNavigate',
         },
+        {
+          eventType: 'input',
+          field: '[data-content="table-content"]',
+          fn: 'onInput',
+        },
       ],
+      emmiter
     });
     this.rows = 10;
   }
@@ -34,7 +40,14 @@ export class Table extends ExcelComponent {
   init() {
     super.init();
     const el = this.root.find('[data-id="1:1"]');
-    this.tableSelect.select(el)
+    this.tableSelect.select(el);
+
+    this.$subscribe('formula:input', (text) => {
+      this.tableSelect.currentElement.text(text)
+    })
+    this.$subscribe('formula:selectElement', () => {
+      this.tableSelect.currentElement.focus()
+    })
   }
 
   toHtml() {
@@ -45,11 +58,11 @@ export class Table extends ExcelComponent {
     if (isResize(event)) {
       resize(event, this.root)
     } else if (isSelected(event)) {
+      const el = $(event.target);
+      this.$emit('table:select', el.text())
       if (event.shiftKey) {
-        const el = $(event.target);
         this.tableSelect.selectGroup(el)
       } else {
-        const el = $(event.target);
         this.tableSelect.select(el)
       }
     }
@@ -63,7 +76,12 @@ export class Table extends ExcelComponent {
       const key = event.key;
       const currentId = parseId(this.tableSelect.currentElement.data.id);
       const next = this.root.find(nextElement(key, currentId, this.rows));
-      this.tableSelect.select(next)
+      this.tableSelect.select(next);
+      this.$emit('table:select', next.text())
     }
+  }
+
+  onInput(event) {
+    this.$emit('table:select', this.tableSelect.currentElement.text())
   }
 }

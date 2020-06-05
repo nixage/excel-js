@@ -4,6 +4,7 @@ export class ExcelComponent extends DomListener {
   constructor(root, options = {}) {
     super(root, options.listeners)
     this.prepare()
+    this.emmiter = options.emmiter
   }
 
   toHtml() {
@@ -11,6 +12,14 @@ export class ExcelComponent extends DomListener {
   }
 
   prepare() {}
+
+  $emit(eventName, ...args) {
+    this.emmiter.emit(eventName, ...args)
+  }
+
+  $subscribe(eventName, fn) {
+    this.emmiter.subscribe(eventName, fn)
+  }
 
   init() {
     this.initListener()

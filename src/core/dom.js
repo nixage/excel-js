@@ -12,6 +12,20 @@ class Dom {
     }
     return this.el.innerHTML;
   }
+  text(text) {
+    if (typeof text === 'string') {
+      if (this.el.tagName.toLowerCase() === 'input') {
+        this.el.value = text;
+        return this
+      }
+      this.el.innerText = text;
+      return this
+    }
+    if (this.el.tagName.toLowerCase() === 'input') {
+      return this.el.value
+    }
+    return this.el.innerText
+  }
 
   append(element) {
     if (element instanceof Dom) {
