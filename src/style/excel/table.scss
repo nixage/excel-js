@@ -12,6 +12,9 @@
     display: flex;
     height: $heighCell;
     min-height: 25px;
+    &-100{
+      height: 100%;
+    }
   }
 
   &__cell {
@@ -19,8 +22,8 @@
     min-width: 60px;
     height: 100%;
     display: flex;
-    justify-content: start;
-    align-items: flex-start;
+    // justify-content: start;
+    // align-items: flex-start;
     border: $border;
     border-top: none;
     border-left: none;
@@ -34,6 +37,7 @@
     &-letter{
       justify-content: center;
       align-items: center;
+      overflow: visible;
     }
     &-num{
       min-width: $widthCellStartAndNumber;

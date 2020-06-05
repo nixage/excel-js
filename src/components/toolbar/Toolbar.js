@@ -3,7 +3,7 @@ import {ExcelComponent} from '@core/ExcelComponent';
 export class Toolbar extends ExcelComponent {
   static className = 'excel-toolbar';
 
-  constructor(root) {
+  constructor(root, emmiter) {
     super(root, {
       name: 'Toolbar',
       listeners: [
@@ -12,7 +12,8 @@ export class Toolbar extends ExcelComponent {
           field: '.btn',
           fn: 'onClick'
         }
-      ]
+      ],
+      emmiter
     })
   }
 

@@ -3,6 +3,13 @@ import {ExcelComponent} from '@core/ExcelComponent';
 export class Header extends ExcelComponent {
   static className = 'excel-header';
 
+  constructor(root, emmiter) {
+    super(root, {
+      name: 'Header',
+      emmiter
+    })
+  }
+
   toHtml() {
     return `
       <div class="excel-header__row">

@@ -26,7 +26,7 @@ function renderRowCell(count) {
           ${i + 1} 
           <div class="excel-table__resizer-row" data-resize="row"></div> 
         </div>
-        <div class="excel-table__row">
+        <div class="excel-table__row excel-table__row-100">
           ${renderCell(i)}
         </div>
       </div>
@@ -55,7 +55,9 @@ export function createTable(count = 20) {
         ${renderCellLetter()}
       </div>
     </div>
-    ${renderRowCell(count)}
+    <div class="excel-table__content" data-content="table-content">
+      ${renderRowCell(count)}
+    </div>
   </div>
   `
 }
