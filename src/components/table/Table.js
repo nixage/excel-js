@@ -2,7 +2,7 @@ import {ExcelComponent} from '@core/ExcelComponent';
 import {createTable} from './table.template';
 import {resize} from './table.resize';
 import {TableSelect} from './Table.select'
-import {isResize, isSelected} from './table.function';
+import {isResize, isSelected, parseId, nextElement} from './table.function';
 import {$} from '@core/dom'
 
 export class Table extends ExcelComponent {
@@ -15,10 +15,16 @@ export class Table extends ExcelComponent {
         {
           eventType: 'mousedown',
           field: '[data-body="table-body"]',
-          fn: 'resize',
+          fn: 'onMouseDown',
+        },
+        {
+          eventType: 'keydown',
+          field: '[data-body="table-body"]',
+          fn: 'tableNavigate',
         },
       ],
     });
+    this.rows = 10;
   }
 
   prepare() {
@@ -32,10 +38,10 @@ export class Table extends ExcelComponent {
   }
 
   toHtml() {
-    return createTable(10);
+    return createTable(this.rows);
   }
 
-  resize(event) {
+  onMouseDown(event) {
     if (isResize(event)) {
       resize(event, this.root)
     } else if (isSelected(event)) {
@@ -46,6 +52,18 @@ export class Table extends ExcelComponent {
         const el = $(event.target);
         this.tableSelect.select(el)
       }
+    }
+  }
+
+  tableNavigate(event) {
+    const keys = ['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight', 'Enter', 'Tab'];
+
+    if (keys.includes(event.key) && !event.shiftKey) {
+      event.preventDefault()
+      const key = event.key;
+      const currentId = parseId(this.tableSelect.currentElement.data.id);
+      const next = this.root.find(nextElement(key, currentId, this.rows));
+      this.tableSelect.select(next)
     }
   }
 }

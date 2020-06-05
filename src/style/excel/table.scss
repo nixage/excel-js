@@ -14,56 +14,38 @@
     min-height: 25px;
   }
 
-  &__start {
-    min-width: $widthCellStartAndNumber;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-right: $border;
-    border-bottom: $border;
-    font-size: 12px;
-    background-color: #f8f9fa;
-    position: relative;
-  }
-
-  &__row-letter {
-    display: flex;
-    align-items: center;
-    height: 100%;
-  }
-
-  &__cell-letter {
+  &__cell {
     width: $widthCell;
     min-width: 60px;
     height: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: start;
+    align-items: flex-start;
     border: $border;
     border-top: none;
     border-left: none;
-    // border-bottom: $border;
     background-color: #f8f9fa;
     line-height: 26px;
     position: relative;
     word-break: break-all;
-  }
-
-  &__cell-num {
-    @extend .excel-table__start;
-  }
-
-  &__row-cell {
-    @extend .excel-table__row-letter;
-  }
-
-  &__cell {
-    @extend .excel-table__cell-letter;
-    justify-content: start;
-    align-items: flex-start;
     padding: 0px 5px;
     background-color: #fff;
     overflow: hidden;
+    &-letter{
+      justify-content: center;
+      align-items: center;
+    }
+    &-num{
+      min-width: $widthCellStartAndNumber;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-right: $border;
+      border-bottom: $border;
+      font-size: 12px;
+      background-color: #f8f9fa;
+      position: relative;
+    }
   }
   &__cell.selected{
     border: 2px solid #36c;

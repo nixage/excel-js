@@ -76,9 +76,16 @@ class Dom {
 
   add(className) {
     this.el.classList.add(className)
+    return this
   }
   remove(className) {
     this.el.classList.remove(className)
+    return this
+  }
+
+  focus() {
+    this.el.focus()
+    return this
   }
 }
 

@@ -23,3 +23,26 @@ export function createRange(current, target) {
   return arr
 }
 
+
+export function nextElement(key, {row, cell}, maxRow) {
+  switch (key) {
+    case 'ArrowDown':
+    case 'Enter':
+      row = row + 1 >= maxRow ? maxRow: ++row
+      break;
+    case 'ArrowRight':
+    case 'Tab':
+      cell = cell + 1 >= 25 ? 25: ++cell
+      break;
+    case 'ArrowLeft':
+      cell = cell - 1 <= 1 ? 1: --cell
+      break;
+    case 'ArrowUp':
+      row = row - 1 <= 1 ? 1: --row
+      break;
+  }
+
+  return `[data-id="${row}:${cell}"]`
+}
+
+

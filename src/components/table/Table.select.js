@@ -12,7 +12,7 @@ export class TableSelect {
 
   select(element) {
     this.removeSelectedElements()
-    element.add(TableSelect.className);
+    element.focus().add(TableSelect.className);
     this.arrayOfSelectedElements.push(element)
     this.currentElement = element;
   }
@@ -34,6 +34,7 @@ export class TableSelect {
       element.add('selected')
       this.arrayOfSelectedElements.push(element)
     })
+    this.arrayOfSelectedElements[this.arrayOfSelectedElements.length - 1].focus()
   }
 }
 
