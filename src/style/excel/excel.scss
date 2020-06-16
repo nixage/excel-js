@@ -2,3 +2,6 @@
 @import 'toolbar.scss';
 @import 'formula.scss';
 @import 'table.scss';
+.material-icons {
+  pointer-events: none;
+}
