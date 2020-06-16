@@ -9,7 +9,7 @@ export class DomListener {
 
   initDomListener() {
     this.listeners.forEach(el => {
-      const fn = this[el.fn].bind(this)
+      const fn = this[el.fn].bind(this);
       this.root.on(el.eventType, el.field, fn)
     })
   }

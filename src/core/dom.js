@@ -13,7 +13,7 @@ class Dom {
     return this.el.innerHTML;
   }
   text(text) {
-    if (typeof text === 'string') {
+    if (typeof text !== 'undefined') {
       if (this.el.tagName.toLowerCase() === 'input') {
         this.el.value = text;
         return this
@@ -27,6 +27,13 @@ class Dom {
     return this.el.innerText
   }
 
+  attr(name, value) {
+    if (typeof value !== undefined) {
+      this.el.setAttribute(name, value);
+      return this
+    }
+    return this.el.getAttribute(name)
+  }
   append(element) {
     if (element instanceof Dom) {
       element = element.el;
@@ -36,8 +43,9 @@ class Dom {
   }
 
   on(eventType, selector, callback) {
-    const nodeElements = this.el.querySelectorAll(selector);
-    if (nodeElements) {
+    const nodeElements = selector === '' ? this.el : this.el.querySelectorAll(selector);
+
+    if (nodeElements.length) {
       for (let i = 0; i < nodeElements.length; i++) {
         nodeElements[i].addEventListener(eventType, callback);
         this.listeners.push({
@@ -45,7 +53,9 @@ class Dom {
           fn: callback,
         });
       }
+      return
     }
+    nodeElements.addEventListener(eventType, callback);
   }
 
   off(eventType, selector, callback) {
@@ -83,8 +93,18 @@ class Dom {
     return this.el.clientWidth
   }
 
-  css(style, value) {
-    this.el.style[style] = value;
+  getStyles(styles = []) {
+    const elementStyles = {}
+    styles.forEach( el => {
+      elementStyles[el] = this.el.style[el]
+    })
+    return elementStyles
+  }
+
+  css(styles = {}) {
+    Object.keys(styles).forEach( key => {
+      this.el.style[key] = styles[key]
+    })
     return this
   }
 

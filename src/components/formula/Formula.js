@@ -1,9 +1,10 @@
 import {ExcelComponent} from '@core/ExcelComponent';
+import {$} from '@core/dom'
 
 export class Formula extends ExcelComponent {
   static className = 'excel-formula';
 
-  constructor(root, emmiter) {
+  constructor(root, options = {}) {
     super(root, {
       name: 'Formula',
       listeners: [
@@ -18,7 +19,8 @@ export class Formula extends ExcelComponent {
           fn: 'keydown'
         }
       ],
-      emmiter
+      subscribe: ['currentText'],
+      ...options
     })
   }
 
@@ -26,7 +28,11 @@ export class Formula extends ExcelComponent {
     super.init()
     this.formula = this.root.find('#formula')
 
-    this.$subscribe('table:select', (text) => {
+    this.$subscribe('table:select', (cell) => {
+      this.formula.text(cell.data.value || '')
+    })
+
+    this.$subscribe('table:input', (text) => {
       this.formula.text(text)
     })
   }
@@ -39,7 +45,7 @@ export class Formula extends ExcelComponent {
   }
 
   onInput(event) {
-    const text = event.target.innerText
+    const text = $(event.target).text()
     this.$emit('formula:input', text)
   }
 

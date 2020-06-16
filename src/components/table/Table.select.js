@@ -10,6 +10,12 @@ export class TableSelect {
     this.currentElement = '';
   }
 
+  get selectedIds() {
+    return this.arrayOfSelectedElements.map( el => {
+      return parseId(el.data.id)
+    })
+  }
+
   select(element) {
     this.removeSelectedElements()
     element.focus().add(TableSelect.className);
@@ -35,6 +41,10 @@ export class TableSelect {
       this.arrayOfSelectedElements.push(element)
     })
     this.arrayOfSelectedElements[this.arrayOfSelectedElements.length - 1].focus()
+  }
+
+  setStyle(style) {
+    this.arrayOfSelectedElements.forEach(el => el.css(style))
   }
 }
 

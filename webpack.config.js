@@ -61,6 +61,7 @@ module.exports = {
       '@img': path.resolve(__dirname, 'src/img'),
       '@fonts': path.resolve(__dirname, 'src/fonts'),
       '@core': path.resolve(__dirname, 'src/core'),
+      '@redux': path.resolve(__dirname, 'src/core/redux'),
     },
   },
   optimization: optimization(),

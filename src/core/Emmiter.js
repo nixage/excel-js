@@ -5,9 +5,11 @@ export class Emmiter {
 
   emit(eventName, ...args) {
     const event = this.listener.filter(listener => listener.event === eventName);
-    event.forEach( event => {
-      event.fn(...args)
-    })
+    if (event) {
+      event.forEach( event => {
+        event.fn(...args)
+      })
+    }
   }
 
   subscribe(eventName, fn) {
@@ -17,5 +19,9 @@ export class Emmiter {
         this.listener = this.listener.filter(el => el.event !== eventName);
       }
     }
+  }
+
+  unsubscribe() {
+    this.listener = [];
   }
 }

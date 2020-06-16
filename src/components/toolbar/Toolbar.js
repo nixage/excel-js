@@ -1,60 +1,52 @@
-import {ExcelComponent} from '@core/ExcelComponent';
+import {createToolbar} from './toolbar.template';
+import {ExcelStoreComponent} from '@core/ExcelStoreComponent';
+import {isButton} from './toolbar.function'
+import {$} from '@core/dom';
+import {initialStyle} from '@core/initialStyle'
+import * as actions from '@core/redux/actions'
+import {storage} from '../../core/localStorage/localStorage';
 
-export class Toolbar extends ExcelComponent {
+export class Toolbar extends ExcelStoreComponent {
   static className = 'excel-toolbar';
 
-  constructor(root, emmiter) {
+  constructor(root, options) {
     super(root, {
       name: 'Toolbar',
       listeners: [
         {
           eventType: 'click',
-          field: '.btn',
+          field: '',
           fn: 'onClick'
         }
       ],
-      emmiter
+      subscribe: ['currentStyle'],
+      ...options
     })
   }
 
+  prepare() {
+    const style = storage('app-state') ? storage('app-state').currentStyle: initialStyle
+    this.initialState(style)
+  }
+
+  get template() {
+    return createToolbar(this.state);
+  }
+
   toHtml() {
-    return `
-      <div class="excel-toolbar__row">
-        <div class="excel-toolbar__button">
-          <button class="btn btn-g">
-            <span class="material-icons">format_bold</span>
-          </button>
-        </div>
-        <div class="excel-toolbar__button">
-          <button class="btn btn-g">
-            <span class="material-icons">format_italic</span>
-          </button>
-        </div>
-        <div class="excel-toolbar__button">
-          <button class="btn btn-g">
-            <span class="material-icons">format_underlined</span>
-          </button>
-        </div>
-        <div class="excel-toolbar__button">
-          <button class="btn btn-g">
-            <span class="material-icons">format_align_left</span>
-          </button>
-        </div>
-        <div class="excel-toolbar__button">
-          <button class="btn btn-g">
-            <span class="material-icons">format_align_center</span>
-          </button>
-        </div>
-        <div class="excel-toolbar__button">
-          <button class="btn btn-g">
-            <span class="material-icons">format_align_right</span>
-          </button>
-        </div>
-      </div>
-    `;
+    return this.template
+  }
+
+  $storeChange(change) {
+    this.setState(change.currentStyle)
   }
 
   onClick(event) {
-    console.log(event)
+    if (isButton(event)) {
+      const style = $(event.target).data.style;
+      const value = $(event.target).data.value;
+      this.$storeDispatch(actions.createStyleActions({[style]: value}))
+      this.$emit('toolbar:style', {[style]: value})
+    }
   }
 }
