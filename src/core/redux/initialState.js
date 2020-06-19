@@ -1,13 +1,20 @@
-import {storage} from '@core/localStorage/localStorage';
 import {initialStyle} from '../initialStyle';
 
-const defaultState = {
-  rowStateSize: {},
-  collStateSize: {},
-  cellState: {},
-  stylesState: {},
-  currentText: '',
-  currentStyle: initialStyle
+function defaultState() {
+  const now = new Date().toLocaleDateString() + ' ' + new Date().toTimeString().split(' ')[0]
+  return {
+    rowStateSize: {},
+    collStateSize: {},
+    cellState: {},
+    stylesState: {},
+    currentText: '',
+    currentStyle: initialStyle,
+    titlePage: 'New Table',
+    date: now
+  }
 }
 
-export const initialState = storage('app-state') ? storage('app-state') : defaultState;
+
+export function initialState(state) {
+  return state ? state : defaultState()
+}

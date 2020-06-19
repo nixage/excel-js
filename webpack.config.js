@@ -27,15 +27,7 @@ const optimization = () => {
 };
 
 const jsLoaders = () => {
-  const loader = [
-    {
-      loader: 'babel-loader',
-      options: {
-        presets: ['@babel/preset-env'],
-        plugins: ['@babel/plugin-proposal-class-properties']
-      },
-    },
-  ];
+  const loader = ['babel-loader'];
 
   if (isDev) {
     loader.push('eslint-loader');
@@ -44,6 +36,32 @@ const jsLoaders = () => {
   return loader;
 };
 
+const entryConf = () => {
+  if (isDev) {
+    return {
+      main: ['@babel/polyfill', './index.js'],
+      unshift: 'webpack-dev-server/client?http://localhost:4200/'
+    }
+  }
+  return {
+    main: ['@babel/polyfill', './index.js'],
+  }
+}
+
+const outputConf = () => {
+  if (isDev) {
+    return {
+      path: path.resolve(__dirname, 'dist'),
+      filename: '[name].[hash].js',
+      publicPath: '/'
+    }
+  }
+  return {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[hash].js',
+  }
+}
+
 module.exports = {
   context: path.resolve(__dirname, 'src'),
   mode: 'development',
@@ -51,6 +69,7 @@ module.exports = {
     port: 4200,
     hot: isDev,
     publicPath: '/',
+    historyApiFallback: true,
     contentBase: path.resolve(__dirname, 'src'),
     watchContentBase: true
   },
@@ -65,15 +84,8 @@ module.exports = {
     },
   },
   optimization: optimization(),
-  entry: {
-    main: ['@babel/polyfill', './index.js'],
-    unshift: 'webpack-dev-server/client?http://localhost:4200/'
-  },
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[hash].js',
-    publicPath: '/'
-  },
+  entry: entryConf(),
+  output: outputConf(),
   module: {
     rules: [
       {
@@ -109,8 +121,6 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: '[path][name].[ext]',
-              // outputPath: '/img',
-              // publicPath: './img'
             },
           },
           'image-webpack-loader',
@@ -127,8 +137,6 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: '[path][name].[ext]',
-              // outputPath: '/fonts',
-              // publicPath: './fonts',
             },
           },
         ],

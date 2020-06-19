@@ -1,5 +1,4 @@
 export function createToolbar(state = {}) {
-  console.log(state)
   const buttonConfig = [
     {
       type: 'format_bold',

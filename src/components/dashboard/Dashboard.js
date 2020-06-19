@@ -1,16 +1,12 @@
-import {$} from '@core/dom'
+import {$} from '@core/dom';
 import {Emmiter} from '@core/Emmiter';
-import {ComponentStoreSubscriber} from '@core/ComponentStoreSubscriber';
 
-export class Excel {
+export class Dashboard {
   constructor(options) {
     this.components = options.components || [];
-    this.store = options.store
-    this.subsciber = new ComponentStoreSubscriber(this.store)
   }
-
   getRoot() {
-    const root = $.create('div', 'excel');
+    const root = $.create('div', 'dashboard');
     const componentOptions = {
       emmiter: new Emmiter(),
       store: this.store
@@ -26,14 +22,12 @@ export class Excel {
   }
 
   init() {
-    this.subsciber.componentSubscribe(this.components)
     this.components.forEach(el => {
       el.init()
     });
   }
 
   destroy() {
-    this.subsciber.unsubscribeFromStore()
     this.components.forEach( el => el.destroy())
   }
 }

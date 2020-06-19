@@ -12,6 +12,10 @@ class Dom {
     }
     return this.el.innerHTML;
   }
+  clear() {
+    this.el.innerHTML = ''
+    return this
+  }
   text(text) {
     if (typeof text !== 'undefined') {
       if (this.el.tagName.toLowerCase() === 'input') {
