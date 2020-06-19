@@ -1,6 +1,6 @@
 import {toLineStyle} from '@core/functions'
 import {initialStyle} from '@core/initialStyle';
-import {parse} from '../../core/functions';
+import {parse} from '@core/functions';
 
 const letterCode = {
   A: 65,

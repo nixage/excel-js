@@ -1,8 +1,9 @@
-import {ExcelComponent} from '@core/ExcelComponent';
+import {Component} from '@core/Component';
 import {$} from '@core/dom';
 import * as actions from '@core/redux/actions';
+import {ActivatedRoute} from '@core/routing/ActivatedRoute';
 
-export class Header extends ExcelComponent {
+export class Header extends Component {
   static className = 'excel-header';
 
   constructor(root, options) {
@@ -13,7 +14,12 @@ export class Header extends ExcelComponent {
           eventType: 'input',
           field: '.exel-header__input',
           fn: 'input',
-        }
+        },
+        {
+          eventType: 'click',
+          field: '[data-type="delete"]',
+          fn: 'deleteTable',
+        },
       ],
       ...options
     })
@@ -24,8 +30,16 @@ export class Header extends ExcelComponent {
     this.$storeDispatch(actions.createTitleActions(target.text()))
   }
 
+  deleteTable(event) {
+    const question = confirm('Do you really want to delete this table ?')
+    if (question) {
+      localStorage.removeItem('excel:'+ActivatedRoute.param)
+      window.location.hash = '#dashboard'
+    }
+  }
+
   toHtml() {
-    const title = this.store.getState().titlePage || 'Новая таблица'
+    const title = this.store.getState().titlePage || 'New Table'
     return `
       <div class="excel-header__row">
         <div class="excel-header__left-block">
@@ -42,16 +56,16 @@ export class Header extends ExcelComponent {
         </div>
         <div class="excel-header__right-block">
           <div class="excel-header__button">
-            <button class="btn">
+            <button class="btn" data-type="delete">
               <span class="material-icons">
                 delete_forever
               </span>
             </button>
-            <button class="btn">
+            <a class="btn" href="#dashboard">
               <span class="material-icons">
                 exit_to_app
               </span>
-            </button>
+            </a>
           </div>
         </div>
       </div>

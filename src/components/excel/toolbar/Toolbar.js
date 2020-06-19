@@ -1,12 +1,12 @@
 import {createToolbar} from './toolbar.template';
-import {ExcelStoreComponent} from '@core/ExcelStoreComponent';
+import {StoreComponent} from '@core/StoreComponent';
 import {isButton} from './toolbar.function'
 import {$} from '@core/dom';
 import {initialStyle} from '@core/initialStyle'
 import * as actions from '@core/redux/actions'
-import {storage} from '../../core/localStorage/localStorage';
+import {storage} from '@core/localStorage/localStorage';
 
-export class Toolbar extends ExcelStoreComponent {
+export class Toolbar extends StoreComponent {
   static className = 'excel-toolbar';
 
   constructor(root, options) {

@@ -23,13 +23,10 @@ export function debounce(fn, time = 300) {
 export function parse(value='') {
   if (value.startsWith('=')) {
     try {
-      console.log(eval(value.slice(1)))
       return eval(value.slice(1))
     } catch {
-      console.log(value)
       return value
     }
   }
-  console.log(value)
   return value
 }

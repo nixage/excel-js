@@ -1,4 +1,4 @@
-import {ExcelComponent} from '@core/ExcelComponent';
+import {StoreComponent} from '@core/StoreComponent';
 import {createTable} from './table.template';
 import {resize} from './table.resize';
 import {TableSelect} from './Table.select'
@@ -9,7 +9,7 @@ import * as actionsType from '@redux/types'
 import {initialStyle} from '@core/initialStyle'
 import {parse} from '@core/functions';
 
-export class Table extends ExcelComponent {
+export class Table extends StoreComponent {
   static className = 'excel-table';
 
   constructor(root, options) {
