@@ -39,7 +39,7 @@ export class Header extends Component {
   }
 
   toHtml() {
-    const title = this.store.getState().titlePage || 'New Table'
+    const title = this.store.getState().titlePage
     return `
       <div class="excel-header__row">
         <div class="excel-header__left-block">

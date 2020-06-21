@@ -15,9 +15,14 @@ export function parseId(str) {
 
 export function createRange(current, target) {
   const arr = [];
-  for (let cell = current.cell; current.cell > target.cell ? target.cell <= cell : cell <= target.cell; current.cell > target.cell ? cell-- : cell++ ) {
-    for (let row = current.row; current.row > target.row ? target.row <= row : row <= target.row; current.row > target.row ? row-- : row++ ) {
-      arr.push(`${row}:${cell}`);
+  const _current = current
+  if (current.cell > target.cell || current.row > target.row) {
+    current = target
+    target = _current
+  }
+  for (let cell = current.cell; cell <= target.cell; cell++) {
+    for (let row = current.row; row <= target.row; row++) {
+      arr.push(`${row}:${cell}`)
     }
   }
   return arr

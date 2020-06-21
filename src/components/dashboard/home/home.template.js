@@ -74,7 +74,7 @@ function renderTableList(lists) {
     const table = JSON.parse(localStorage.getItem(el));
     template.push(`
       <li>
-        <a href="#excel/${el.split(':')[1]}" class="table-lists__link">${table.titlePage}</a>
+        <a href="#excel/${el.split(':')[1]}" class="table-lists__link">${table.titlePage || '(no name)'}</a>
         <span>${table.date}</span>
       </li>
     `)

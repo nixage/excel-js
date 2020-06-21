@@ -1,4 +1,4 @@
-import {$} from '@core/dom';
+import {$} from '../dom';
 import {ActivatedRoute} from './ActivatedRoute';
 import {parseRoute} from './routing.functions'
 
