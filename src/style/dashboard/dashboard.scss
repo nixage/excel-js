@@ -71,6 +71,11 @@
       width: 140px;
       height: 140px;
     }
+    @media (min-width: 992px) {
+      &:hover {
+        box-shadow: 1px 1px 14px #b5b5b5;
+      }
+    }
   }
   &__body {
     width: 100%;

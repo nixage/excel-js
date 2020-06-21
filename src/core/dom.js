@@ -13,7 +13,7 @@ class Dom {
     return this.el.innerHTML;
   }
   clear() {
-    this.el.innerHTML = ''
+    this.html('')
     return this
   }
   text(text) {
@@ -137,8 +137,4 @@ $.create = function(tagName, classes = '') {
     el.classList.add(classes);
   }
   return $(el);
-};
-
-$.all = function(selector) {
-  return document.querySelectorAll(selector);
 };
